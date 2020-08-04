@@ -1,20 +1,40 @@
 const Discord = require('discord.js');
+const { CronJob } = require('cron');
 const { prefixSub, prefixAdd, prefixGet, prefixSet, wormlistpath, token} = require('./config.json');
 const client = new Discord.Client();
+const cronJob = require("cron").CronJob;
 var fileSystem = require('fs');
-const { CronJob } = require('cron');
-var updateFile = require("cron").CronJob;
-
+const { isNullOrUndefined } = require('util');
 let wormList = new Discord.Collection();
 
 client.once('ready', () => {
-    console.log('Ready!');
+    fileSystem.openSync(wormlistpath, 'r');
+    var contents = fileSystem.readFileSync(wormlistpath, 'utf8');
+    var lines = contents.split(/[^0-9|-]+/);
     
+    //lines.forEach(element => console.log(element));
+    for(var i = 0; i < lines.length/2-1; i ++){
+      console.log("id#" + lines[2*i+1] + "; worms: " + lines[2*i+2]);
+      setWorm(lines[2*i+1], lines[2*i+2])
+    }
+    console.log('all worms loaded from ' + wormlistpath);
+
+    updateFile.start();
+    console.log('periodic file updating started');
+
+    console.log('Ready!');
 });
 
-new CronJob("00 00 7* * 0", function(){
-
-}, null, true)
+var updateFile = new cronJob('*/10 * * * * *', function(){
+    wormList.forEach(element => fileSystem.writeFileSync(wormlistpath, JSON.stringify([...wormList]), function(err){
+      if (err) {
+        return console.log(err);
+      }
+      console.log();
+    }));
+    const d = new Date();
+    console.log('logged @', d);
+})
 
 function setWorm(id, worms){
   if(!isNaN(worms)){
@@ -41,6 +61,10 @@ function getWorms(id){
     wormList.set(id, 0);
     return NaN;
   }
+}
+
+function displayAll(){
+  wormlistpath.forEach(element => console.log(element));
 }
 
 client.on('message', message => {
@@ -77,6 +101,9 @@ client.on('message', message => {
     if(message.content.startsWith(`${prefixGet}`)){
       var msg = message.content.split(' ');
       var id = msg[1];
+      if(id != 'undefined'){
+        displayAll();
+      }
       displayWorms(id, message.channel);
     }
   });

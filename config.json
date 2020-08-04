@@ -3,6 +3,6 @@
     "prefixAdd": "+worm",
     "prefixGet": "-getworm",
     "prefixSet": "-setworm",
-    "wormlistpath": "",
+    "wormlistpath": "list.json",
     "token": "NzA0NDg3MzE1NDI2NTA4ODAx.Xqd28A.H8fEAGWXiTiw_n7d6wzKM9Axmfw"
 }

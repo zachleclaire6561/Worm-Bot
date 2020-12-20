@@ -1,11 +1,17 @@
-config.json
+#config.json
 
-list copy.json
+#list copy.json
 
-list.json
+#list.json
 
-package.json
+#package.json
 
-package-lock.json
+#package-lock.json
 
-/node_modules/
+#wormbot.code-workspace
+
+#/.vscode/
+
+#.gitignore
+
+#/node_modules/

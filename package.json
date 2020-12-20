@@ -1,0 +1,26 @@
+{
+  "name": "wormbot",
+  "version": "1.0.0",
+  "description": "Discord Bot",
+  "main": "bot.js",
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "fs": "^0.0.1-security",
+    "cron": "^1.8.2",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachleclaire6561/Worm-Bot.git"
+  },
+  "author": "zachary leclaire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zachleclaire6561/Worm-Bot/issues"
+  },
+  "homepage": "https://github.com/zachleclaire6561/Worm-Bot#readme"
+}

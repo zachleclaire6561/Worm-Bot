@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const { prefix, token, myDB, hostID, username, password } = require('./config.json');
+/*
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
@@ -10,21 +11,21 @@ var con = mysql.createConnection({
     password: password,
     database: myDB
 });
-
+*/
 
 client = new Discord.Client();
 client.commands = new Discord.Collection();
 // Cache for Worm Count
 client.WormCache = new Discord.Collection();
 client.RaceCache = new Discord.Collection();
+/*
 client.SQLConnection = con;
 
 client.SQLConnection.connect(function(err) {
     if (err) throw err;
     console.log("Connected to Database!");
-
 });
-
+*/
 // importing commands
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 let commandCount = 1;

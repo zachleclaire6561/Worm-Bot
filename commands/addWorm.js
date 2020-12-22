@@ -37,6 +37,9 @@ module.exports = {
 
         // not in cache
         if (currentWorms == undefined) {
+            message.client.WormCache.set(targetID, deltaWorm);
+            currentWorms = deltaWorm;
+            /*
             message.client.SQLConnection.query(`SELECT Worm_Count FROM wormdata WHERE user_ID = '${targetID}'`, function(err, result, fields) {
                 if (err) throw err;
                 if (result.length == 0) {
@@ -74,11 +77,14 @@ module.exports = {
             } else {
                 message.reply("That's too many worms. How about you try with fewer worms!");
             }
+            */
         }
         if (Math.abs(currentWorms) > 9223372036854775808 || currentWorms == undefined) {
             message.client.WormCache.set(targetID, undefined);
         } else {
             message.client.WormCache.set(targetID, currentWorms);
         }
+        message.channel.send(`Increasing Worm score of <@!${targetID}> by ${deltaWorm}`);
+        message.channel.send(`<@!${targetID}> now has ${currentWorms} worms`);
     }
 }

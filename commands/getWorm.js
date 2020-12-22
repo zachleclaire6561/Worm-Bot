@@ -21,6 +21,7 @@ module.exports = {
 
         //Data not in cache
         if (currentWorms == undefined) {
+            /*
             message.client.SQLConnection.query(`SELECT Worm_Count FROM wormdata WHERE user_ID = '${targetID}'`, function(err, result, fields) {
                 if (err) throw err;
                 if (result.length == 0) {
@@ -35,7 +36,11 @@ module.exports = {
                 message.client.WormCache.set(targetID, currentWorms);
             });
         } else {
-            message.reply(`<@!${targetID}> has ${currentWorms} worms`);
+            */
+            currentWorms = 0;
+            message.client.WormCache.set(targetID, currentWorms);
         }
+        message.reply(`<@!${targetID}> has ${currentWorms} worms`);
+        //}
     }
 }
